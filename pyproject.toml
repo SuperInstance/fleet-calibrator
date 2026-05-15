@@ -1,0 +1,10 @@
+[project]
+name = "fleet-calibrator"
+version = "0.1.0"
+description = "Continuous critical angle calibration for fleet models. Run periodically to detect drift."
+requires-python = ">=3.10"
+dependencies = ["httpx>=0.24"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
