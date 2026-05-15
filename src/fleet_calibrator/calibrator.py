@@ -69,7 +69,15 @@ async def query_model(prompt: str, model_id: str, provider: str,
             api_key = f.read().strip()
         url = "https://api.deepinfra.com/v1/openai/chat/completions"
     elif provider == "zai":
-        api_key = "703f56774c324a76b8a283ce50b15744.tLKi6d9yeYza5Spg"
+        key_path = os.path.expanduser("~/.openclaw/workspace/.credentials/zai-api-key.txt")
+        if not os.path.exists(key_path):
+            # Fallback to env var
+            api_key = os.environ.get("ZAI_KEY", "")
+            if not api_key:
+                raise ValueError("No z.ai API key found. Set ZAI_KEY env var or create ~/.openclaw/workspace/.credentials/zai-api-key.txt")
+        else:
+            with open(key_path) as f:
+                api_key = f.read().strip()
         url = "https://api.z.ai/api/coding/paas/v4/chat/completions"
     elif provider == "groq":
         key_path = os.path.expanduser("~/.openclaw/workspace/.credentials/groq-api-key.txt")
